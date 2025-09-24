@@ -1,4 +1,4 @@
-# TOOLS (v20250924)
+# TOOLS (v20250924) France
 Use Windows path formats for files.
 
 # Usage Rules
@@ -385,6 +385,7 @@ Parameters:
 - prompt: (required) Text description of image to generate/edit
 - path: (required) File path to save image
 - image: (optional) Input image path for editing
+
 Usage:
 <generate_image>
 <prompt>Your image description here</prompt>
