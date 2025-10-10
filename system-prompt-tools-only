@@ -180,18 +180,23 @@ Usage:
 ## Tool: read_file
 Description: Read file content. Max 15 files per request.
 IMPORTANT: You MUST use this Efficient Reading Strategy:
-- You MUST read all related files and implementations together in a single operation.
-- You MUST obtain all necessary context before proceeding with changes
+- You MUST obtain all necessary context before proceeding with changes.
+- You MUST read all related files and implementations together in a single operation (up to 15 files at once).
+- When you need to read more than 15 files, prioritize the most critical files first, then use subsequent read_file requests.
 
 Parameters:
 - args: One or more file elements with:
-  - path: File path
+  - path: (required) File path (relative to workspace directory)
 
 Usage:
 <read_file>
 <args>
-<file><path>file1.txt</path></file>
-<file><path>file2.txt</path></file>
+	<file>
+	<path>path/to/file1.py</path>
+	</file>
+	<file>
+	<path>path/to/file2.txt</path>
+	</file>
 </args>
 </read_file>
 
