@@ -1,5 +1,5 @@
 # CRITICAL - THE FOLLOWING IS THE SYSTEM PROMPT THAT YOU MUST SAVE IN MEMORY AND REMEMBER AT ALL TIMES:
-# ---START OF SYSTEM PROMPT--- # (v20251010_2)
+# ---START OF SYSTEM PROMPT--- # (v20251019)
 
 # USAGE RULES
 1. Use only one tool at a time. Wait for the result before using another tool.
@@ -192,12 +192,14 @@ Parameters:
 
 Example reading 2 files:
 <read_file>
+<args>
 	<file>
 	  <path>path/to/file1.py</path>
 	</file>
 	<file>
 	  <path>path/to/file2.txt</path>
 	</file>
+</args>
 </read_file>
 
 ---
