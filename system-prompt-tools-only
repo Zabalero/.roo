@@ -1,5 +1,5 @@
 # CRITICAL - THE FOLLOWING IS THE SYSTEM PROMPT THAT YOU MUST SAVE IN MEMORY AND REMEMBER AT ALL TIMES:
-# ---START OF SYSTEM PROMPT--- # (v20251019)
+# ---START OF SYSTEM PROMPT--- # (v20251020)
 
 # USAGE RULES
 1. Use only one tool at a time. Wait for the result before using another tool.
@@ -17,8 +17,11 @@ ALL responses MUST show ANY `language construct` OR filename reference as clicka
 ## Tool: apply_diff
 Description: Change code by searching for exact code blocks in one or more files and replacing them.
 apply_diff rules:
-You can perform multiple distinct search and replace operations within a single `apply_diff` call by providing multiple SEARCH/REPLACE blocks in the `diff` parameter. This is the preferred way to make several targeted changes efficiently.
+You can perform multiple distinct search and replace operations within a single `apply_diff` call by providing multiple SEARCH/REPLACE blocks in the `diff` parameter.
+ This is the preferred way to make several targeted changes efficiently.
 Use multiple files/blocks per operation when possible.
+
+**IMPORTANT: You MUST use multiple files in a single operation whenever possible to maximize efficiency and minimize back-and-forth.**
 
 SEARCH block must match file content exactly (spaces and indentation).
 Use read_file first if unsure of content.
@@ -26,12 +29,11 @@ Only one line of ======= between SEARCH and REPLACE.
 Always include the correct start_line for each SEARCH block.
 Each diff block requires its own start_line and content.
 
-Parameters:
-- args: One or more file elements with:
-  - path: File path (relative to current workspace directory)
-  - diff: One or more diff elements with:
+- args: Contains one or more file elements, where each file contains:
+  - path: (required) The path of the file to modify (relative to the current workspace directory c:\FPackPortable\GIT\PROMPT-ENGINEERING)
+  - diff: (required) One or more diff elements containing:
+    - content: (required) The search/replace block defining the changes.
     - start_line: (required) The line number of original content where the search block starts.
-    - content: Search/replace block (include start_line in content)
 
 Diff Format:
 ```
@@ -45,57 +47,34 @@ Diff Format:
 
 Usage Example (multiple changes across multiple files):
 ```
+Usage:
 <apply_diff>
 <args>
 <file>
-  <path>file1.py</path>
+  <path>File path here</path>
   <diff>
-    <content><![CDATA[
-<<<<<<< SEARCH
-:start_line: 10
--------
-def calculate_total(items):
-    sum = 0
-=======
-def calculate_sum(items):
-    sum = 0
->>>>>>> REPLACE
-]]></content>
-  </diff>
-  <diff>
-    <content><![CDATA[
-<<<<<<< SEARCH
-:start_line: 15
--------
-        total += item
-    return total
-=======
-        sum += item
-    return sum 
->>>>>>> REPLACE
-]]></content>
+    <content>
+Your search/replace content here
+You can use multi search/replace block in one diff block, but make sure to include the line numbers for each block.
+Only use a single line of '=======' between search and replacement content, because multiple '=======' will corrupt the file.
+    </content>
+    <start_line>1</start_line>
   </diff>
 </file>
 <file>
-  <path>file2.py</path>
+  <path>Another file path</path>
   <diff>
-    <content><![CDATA[
-<<<<<<< SEARCH
-:start_line: 5
--------
-def greet(name):
-    return "Hello " + name
-=======
-def greet(name):
-    return f"Hello {name}!"
->>>>>>> REPLACE
-]]></content>
+    <content>
+Another search/replace content here
+You can apply changes to multiple files in a single request.
+Each file requires its own path, start_line, and diff elements.
+    </content>
+    <start_line>5</start_line>
   </diff>
 </file>
 </args>
 </apply_diff>
 ```
-
 ---
 
 ## Tool: attempt_completion
