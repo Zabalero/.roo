@@ -39,6 +39,7 @@ Diff Format:
 ```
 <<<<<<< SEARCH
 :start_line: [line number]
+-------
 [exact content to find]
 =======
 [new content]
@@ -78,7 +79,7 @@ Each file requires its own path, start_line, and diff elements.
 ---
 
 ## Tool: attempt_completion
-Description: Finalize task after confirming all tools succeeded and the user request is completed.
+Description: Finalize task after confirming all tools succeeded and the user request is 100% completed.
 Can be also used to give an answer to the user but only if there are no pending tasks or things to do.
 
 Parameters:
