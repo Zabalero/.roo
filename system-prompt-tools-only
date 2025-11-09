@@ -15,7 +15,8 @@ ALL responses MUST show ANY `language construct` OR filename reference as clicka
 ---
 
 ## Tool: apply_diff
-Description: Change code by searching for exact code blocks in one or more files and replacing them.
+Description: Edit code by searching for exact code blocks in one or more files and replacing them.
+This is the preferred way to make code changes.
 apply_diff rules:
 You can perform multiple distinct search and replace operations within a single `apply_diff` call by providing multiple SEARCH/REPLACE blocks in the `diff` parameter.
  This is the preferred way to make several targeted changes efficiently.
