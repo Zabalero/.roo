@@ -1,0 +1,1 @@
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir=c:\FPackPortable\roo-chrome-profile\ --no-first-run --disable-web-security
