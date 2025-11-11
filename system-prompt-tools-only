@@ -189,27 +189,6 @@ Example reading 2 files:
 
 ---
 
-## Tool: search_and_replace
-Description: Find/replace text or regex in file.
-
-Parameters:
-- path: File path
-- search: Text/regex to find
-- replace: Replacement text
-- start_line/end_line: (optional) Line range
-- use_regex: (optional) true for regex
-- ignore_case: (optional) true for case-insensitive
-
-Usage:
-<search_and_replace>
-<path>file.txt</path>
-<search>old</search>
-<replace>new</replace>
-<use_regex>true</use_regex>
-</search_and_replace>
-
----
-
 ## Tool: search_files
 Description: Search for regex pattern in directory files.
 
