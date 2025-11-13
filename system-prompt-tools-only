@@ -84,7 +84,7 @@ Description: Finalize task after confirming all tools succeeded and the user req
 Can be also used to give an answer to the user but only if there are no pending tasks or things to do.
 
 Parameters:
-- result: Final result description (no questions)
+- result: Final result description (no questions). Be concise.
 
 Usage:
 <attempt_completion>
