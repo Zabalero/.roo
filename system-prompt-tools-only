@@ -40,7 +40,7 @@ Always include the correct start_line for each SEARCH block.
 Each diff block requires its own start_line and content.
 
 - args: Contains one or more file elements, where each file contains:
-  - path: (required) The path of the file to modify (relative to the current workspace directory c:\FPackPortable\GIT\PROMPT-ENGINEERING)
+  - path: (required) The path of the file to modify (relative to the current workspace directory)
   - diff: (required) One or more diff elements containing:
     - content: (required) The search/replace block defining the changes.
     - start_line: (required) The line number of original content where the search block starts.
@@ -134,73 +134,73 @@ Usage:
 
 ---
 
-## Tool: list_code_definition_names
-Description: Request to list definition names (classes, functions, methods, etc.) from source code. This tool can analyze either a single file or all files at the top level of a specified directory. It provides insights into the codebase structure and important constructs, encapsulating high-level concepts and relationships that are crucial for understanding the overall architecture.
+## read_file
+Description: Request to read the contents of one or more files. The tool outputs line-numbered content (e.g. "1 | const x = 1") for easy reference when creating diffs or discussing code. Supports text extraction from PDF and DOCX files, but may not handle other binary files properly.
+
+**IMPORTANT: You can read a maximum of 15 files in a single request.** If you need to read more files, use multiple sequential read_file requests.
+
 
 Parameters:
-- path: File/directory path
+- args: Contains one or more file elements, where each file contains:
+  - path: (required) File path (relative to workspace directory c:\FPackPortable\GIT\PROMPT-ENGINEERING)
+  
 
 Usage:
-1. List definitions from a file:
-<list_code_definition_names>
-<path>src/main.ts</path>
-</list_code_definition_names>
-
-2. List definitions from all files in a directory:
-<list_code_definition_names>
-<path>src/</path>
-</list_code_definition_names>
-
-
----
-
-## Tool: list_files
-Description: List files/folders in directory.
-
-Parameters:
-- path: Directory path
-- <recursive>true or false (optional)</recursive>
-
-Usage:
-<list_files>
-<path>src/</path>
-<recursive>true</recursive>
-</list_files>
-
----
-
-## Tool: read_file
-Description: Read file content. Max 15 files per request.
-IMPORTANT: You MUST use this Efficient Reading Strategy:
-- You MUST obtain all necessary context before proceeding with changes.
-- You MUST read all related files and implementations together in a single operation (up to 15 files at once).
-- When you need to read more than 15 files, prioritize the most critical files first, then use subsequent read_file requests.
-
-Parameters:
-<args>
-	<file>  -- file: one or more file elements with the path to the file to read
-	  <path>path/to/file.py</path> (mandatory)
-	</file>
-</args>
-
-
-Example reading 2 files:
 <read_file>
 <args>
-	<file>
-	  <path>path/to/file1.py</path>
-	</file>
-	<file>
-	  <path>path/to/file2.txt</path>
-	</file>
+  <file>
+    <path>path/to/file</path>
+    
+  </file>
 </args>
 </read_file>
+
+Examples:
+
+1. Reading a single file:
+<read_file>
+<args>
+  <file>
+    <path>src/app.ts</path>
+    
+  </file>
+</args>
+</read_file>
+
+2. Reading multiple files (within the 15-file limit):
+<read_file>
+<args>
+  <file>
+    <path>src/app.ts</path>
+    
+  </file>
+  <file>
+    <path>src/utils.ts</path>
+    
+  </file>
+</args>
+</read_file>
+
+3. Reading an entire file:
+<read_file>
+<args>
+  <file>
+    <path>config.json</path>
+  </file>
+</args>
+</read_file>
+
+IMPORTANT: You MUST use this Efficient Reading Strategy:
+- You MUST read all related files and implementations together in a single operation (up to 15 files at once)
+- You MUST obtain all necessary context before proceeding with changes
+
+- When you need to read more than 15 files, prioritize the most critical files first, then use subsequent read_file requests for additional files
+
 
 ---
 
 ## Tool: search_files
-Description: Search for regex pattern in directory files.
-
+oviding context-rich results. This tool searches for patterns or specific content across multiple files, displaying each match with encapsulating context.
 Parameters:
 - path: Directory path
 - regex: (required) The regular expression pattern to search for. Uses Rust regex syntax.
@@ -309,12 +309,14 @@ Usage:
 ---
 
 ## Tool: fetch_instructions
-Description: Get task instructions.
-
+Description: Request to fetch instructions to perform a task
 Parameters:
-- task: Task name (create_mcp_server, create_mode)
+- task: (required) The task to get instructions for.  This can take the following values:
+  create_mcp_server
+  create_mode
 
-Usage:
+Example: Requesting instructions to create an MCP Server
+
 <fetch_instructions>
 <task>create_mcp_server</task>
 </fetch_instructions>
