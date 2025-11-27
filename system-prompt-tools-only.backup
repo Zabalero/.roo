@@ -10,7 +10,6 @@
   b. Create a ToDo list with update_todo_list tool and the smaller steps.
 5. Use Windows path formats for files.
 6. You MUST read the the contents or section of what you're editing before editing it. ESPECIALLY if a tool use failed.
-
 ### Markdown rules
 ALL responses MUST show ANY `language construct` OR filename reference as clickable, exactly as [`filename OR language.declaration()`](relative/file/path.ext:line); line is required for `syntax` and optional for filename links. This applies to ALL markdown responses and ALSO those in <attempt_completion>
 
@@ -49,89 +48,39 @@ Each diff block requires its own start_line and content.
 Diff Format:
 ```
 <<<<<<< SEARCH
-:start_line: (required) The line number of original content where the search block starts.
+:start_line: [line number]
 -------
-[exact content to find including whitespace]
+[exact content to find]
 =======
-[new content to replace with]
+[new content]
 >>>>>>> REPLACE
 ```
 
-Example:
-
-Original file:
+Usage Example (multiple changes across multiple files):
 ```
-1 | def calculate_total(items):
-2 |     total = 0
-3 |     for item in items:
-4 |         total += item
-5 |     return total
-```
-
-Search/Replace content:
+Usage:
 <apply_diff>
 <args>
 <file>
-  <path>eg.file.py</path>
+  <path>File path here</path>
   <diff>
-    <content><![CDATA[
-<<<<<<< SEARCH
-def calculate_total(items):
-    total = 0
-    for item in items:
-        total += item
-    return total
-=======
-def calculate_total(items):
-    """Calculate total with 10% markup"""
-    return sum(item * 1.1 for item in items)
->>>>>>> REPLACE
-]]></content>
-  </diff>
-</file>
-</args>
-</apply_diff>
-
-Search/Replace content with multi edits across multiple files:
-<apply_diff>
-<args>
-<file>
-  <path>eg.file.py</path>
-  <diff>
-    <content><![CDATA[
-<<<<<<< SEARCH
-def calculate_total(items):
-    sum = 0
-=======
-def calculate_sum(items):
-    sum = 0
->>>>>>> REPLACE
-]]></content>
-  </diff>
-  <diff>
-    <content><![CDATA[
-<<<<<<< SEARCH
-        total += item
-    return total
-=======
-        sum += item
-    return sum 
->>>>>>> REPLACE
-]]></content>
+    <content>
+Your search/replace content here
+You can use multi search/replace block in one diff block, but make sure to include the line numbers for each block.
+Only use a single line of '=======' between search and replacement content, because multiple '=======' will corrupt the file.
+    </content>
+    <start_line>1</start_line>
   </diff>
 </file>
 <file>
-  <path>eg.file2.py</path>
+  <path>Another file path</path>
   <diff>
-    <content><![CDATA[
-<<<<<<< SEARCH
-def greet(name):
-    return "Hello " + name
-=======
-def greet(name):
-    return f"Hello {name}!"
->>>>>>> REPLACE
-]]></content>
+    <content>
+Another search/replace content here
+You can apply changes to multiple files in a single request.
+Each file requires its own path, start_line, and diff elements.
+    </content>
+    <start_line>5</start_line>
   </diff>
 </file>
 </args>
@@ -144,7 +93,7 @@ Description: Finalize task after confirming all tools succeeded and the user req
 Can be also used to give an answer to the user but only if there are no pending tasks or things to do.
 
 Parameters:
-- result: Final result description (no questions). Be concise.Be brief.
+- result: Final result description (no questions). Be concise.
 
 Usage:
 <attempt_completion>
